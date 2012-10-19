@@ -40,5 +40,11 @@ if [ "x$BRN_TOOLS_PATH/helper" = "x" ]; then
   exit 1
 fi
 
+if [ "x$1" = "xstatus" ]; then
+  echo "brn-testbed"
+  git status
+  exit 0
+fi
+
 (cd $DIR; sh ./brn-testbed-click.sh)
 (cd $DIR; sh ./brn-testbed-driver.sh)
