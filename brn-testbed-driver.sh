@@ -4,6 +4,14 @@ PATH=$PATH:/testbedhome/testbed/software/openwrt/backfire-x86/staging_dir/toolch
 PATH=$PATH:/testbedhome/testbed/software/openwrt/backfire-mips/staging_dir/toolchain-mipsel_gcc-4.1.2_uClibc-0.9.30.1/usr/bin
 PATH=$PATH:/testbedhome/testbed/software/openwrt/backfire-wndr3700/staging_dir/toolchain-mips_r2_gcc-4.1.2_uClibc-0.9.30.1/usr/bin/
 
+if [ "x$CPUS" = "x" ]; then
+  if [ -f /proc/cpuinfo ]; then
+    CPUS=`grep -e "^processor" /proc/cpuinfo | wc -l`
+  else
+    CPUS=1
+  fi
+fi
+
 dir=$(dirname "$0")
 pwd=$(pwd)
 
