@@ -44,8 +44,8 @@ ARCHS="mips mipsel i386"
 
 for i in $ARCHS; do
   which $i-linux-uclibc-gcc > /dev/null
-  ARCHALIAS=`cat $FULLNAME | grep "#alias $i " | awk '{print $3}'`
-  BUILDALIAS=`cat $FULLNAME | grep "#build $i " | awk '{print $3}'`
+  ARCHALIAS=`cat $FULLNAME | grep -e "^#alias $i " | awk '{print $3}'`
+  BUILDALIAS=`cat $FULLNAME | grep -e "^#build $i " | awk '{print $3}'`
 
   if [ $? -eq 0 ]; then
     echo "Found $i-linux-uclibc-gcc"
@@ -79,7 +79,7 @@ for i in $ARCHS; do
        $i-linux-uclibc-strip --strip-unneeded click-brn-$ARCHALIAS/tools/click-align/click-align
     fi
 
-    LINKS=`cat $FULLNAME | grep "#link $i " | awk '{print $3}'`
+    LINKS=`cat $FULLNAME | grep -e "^#link $i " | awk '{print $3}'`
 
     for l in $LINKS; do
       if [ "x$CLEARLINKS" = "x1" ]; then

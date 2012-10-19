@@ -44,11 +44,11 @@ for i in $ARCHS; do
   if [ $? -eq 0 ]; then
     echo "Found $i-linux-uclibc-gcc"
   fi
-  ARCHALIAS=`cat $FULLNAME | grep "#alias $i " | awk '{print $3}'`
-  BUILDALIAS=`cat $FULLNAME | grep "#build $i " | awk '{print $3}'`
-  DRIVER=`cat $FULLNAME | grep "#driver $ARCHALIAS " | awk '{print $3}'`
+  ARCHALIAS=`cat $FULLNAME | grep -e "^#alias $i " | awk '{print $3}'`
+  BUILDALIAS=`cat $FULLNAME | grep -e "^#build $i " | awk '{print $3}'`
+  DRIVER=`cat $FULLNAME | grep -e "^#driver $ARCHALIAS " | awk '{print $3}'`
 
-  LINK=`cat $FULLNAME | grep "#link $ARCHALIAS " | awk '{print $3}'`
+  LINK=`cat $FULLNAME | grep -e "^#link $ARCHALIAS " | awk '{print $3}'`
 
   KERNELDIRS=`(cd $KERNELBASE$ARCHALIAS; ls -d linux*)`
   for k in $KERNELDIRS; do
