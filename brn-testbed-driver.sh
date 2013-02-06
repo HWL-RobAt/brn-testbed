@@ -44,7 +44,9 @@ if [ "x$BRN_TOOLS_PATH/helper" = "x" ]; then
   exit 1
 fi
 
-ARCHS="mips mipsel i386"
+if [ "x$ARCHS" = "x" ]; then
+  ARCHS="mips mipsel i386"
+fi
 
 for i in $ARCHS; do
   which $i-linux-uclibc-gcc > /dev/null
@@ -58,7 +60,9 @@ for i in $ARCHS; do
 
   LINK=`cat $FULLNAME | grep -e "^#link $ARCHALIAS " | awk '{print $3}'`
 
-  KERNELDIRS=`(cd $KERNELBASE$ARCHALIAS; ls -d linux*)`
+  if [ "x$KERNELDIRS" = "x" ]; then
+    KERNELDIRS=`(cd $KERNELBASE$ARCHALIAS; ls -d linux*)`
+  fi
   for k in $KERNELDIRS; do
     pure_k_version=`echo $k | sed "s#linux-headers-##g" | sed "s#linux-##g"`
     if [ -f $KERNELBASE$ARCHALIAS/$k/.config ]; then
