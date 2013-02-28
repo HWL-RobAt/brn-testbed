@@ -48,6 +48,12 @@ if [ "x$ARCHS" = "x" ]; then
   ARCHS="mips mipsel i386"
 fi
 
+if [ "x$KERNELDIRS" != "x" ]; then
+  SETKERNELDIRS=1
+else
+  SETKERNELDIRS=0
+fi
+
 for i in $ARCHS; do
   which $i-linux-uclibc-gcc > /dev/null
 
@@ -60,7 +66,7 @@ for i in $ARCHS; do
 
   LINK=`cat $FULLNAME | grep -e "^#link $ARCHALIAS " | awk '{print $3}'`
 
-  if [ "x$KERNELDIRS" = "x" ]; then
+  if [ $SETKERNELDIRS -eq 0 ]; then
     KERNELDIRS=`(cd $KERNELBASE$ARCHALIAS; ls -d linux*)`
   fi
   for k in $KERNELDIRS; do
