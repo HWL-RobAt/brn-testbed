@@ -74,6 +74,8 @@ for i in $ARCHS; do
     if [ -f $KERNELBASE$ARCHALIAS/$k/.config ]; then
       for d in $DRIVER; do
         echo "Build $d for $ARCHALIAS $KERNELBASE$ARCHALIAS/$k -> $BRN_TOOLS_PATH/helper/nodes/lib/modules/$ARCHALIAS/$pure_k_version"
+        echo "Build $d for $ARCHALIAS $KERNELBASE$ARCHALIAS/$k -> $BRN_TOOLS_PATH/helper/nodes/lib/modules/$ARCHALIAS/$pure_k_version" >> build.log
+        echo "(cd $DIR/../brn-driver; KERNELPATH=$KERNELBASE$ARCHALIAS/$k/ ARCH=$BUILDALIAS COMPILER_PREFIX=$i-linux-uclibc- TARGETDIR=$BRN_TOOLS_PATH/helper/nodes/lib/modules/$ARCHALIAS/$pure_k_version sh ./brn-driver.sh build-modules $d)" >> build.log
         (cd $DIR/../brn-driver; KERNELPATH=$KERNELBASE$ARCHALIAS/$k/ ARCH=$BUILDALIAS COMPILER_PREFIX=$i-linux-uclibc- TARGETDIR=$BRN_TOOLS_PATH/helper/nodes/lib/modules/$ARCHALIAS/$pure_k_version sh ./brn-driver.sh build-modules $d)
       done
     fi
