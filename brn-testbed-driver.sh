@@ -48,6 +48,12 @@ if [ "x$ARCHS" = "x" ]; then
   ARCHS="mips mipsel i386"
 fi
 
+if [ "x$KERNELDIRS" != "x" ]; then
+  SETKERNELDIRS=1
+else
+  SETKERNELDIRS=0
+fi
+
 for i in $ARCHS; do
   which $i-linux-uclibc-gcc > /dev/null
 
@@ -60,7 +66,7 @@ for i in $ARCHS; do
 
   LINK=`cat $FULLNAME | grep -e "^#link $ARCHALIAS " | awk '{print $3}'`
 
-  if [ "x$KERNELDIRS" = "x" ]; then
+  if [ $SETKERNELDIRS -eq 0 ]; then
     KERNELDIRS=`(cd $KERNELBASE$ARCHALIAS; ls -d linux*)`
   fi
   for k in $KERNELDIRS; do
@@ -68,6 +74,8 @@ for i in $ARCHS; do
     if [ -f $KERNELBASE$ARCHALIAS/$k/.config ]; then
       for d in $DRIVER; do
         echo "Build $d for $ARCHALIAS $KERNELBASE$ARCHALIAS/$k -> $BRN_TOOLS_PATH/helper/nodes/lib/modules/$ARCHALIAS/$pure_k_version"
+        echo "Build $d for $ARCHALIAS $KERNELBASE$ARCHALIAS/$k -> $BRN_TOOLS_PATH/helper/nodes/lib/modules/$ARCHALIAS/$pure_k_version" >> build.log
+        echo "(cd $DIR/../brn-driver; KERNELPATH=$KERNELBASE$ARCHALIAS/$k/ ARCH=$BUILDALIAS COMPILER_PREFIX=$i-linux-uclibc- TARGETDIR=$BRN_TOOLS_PATH/helper/nodes/lib/modules/$ARCHALIAS/$pure_k_version sh ./brn-driver.sh build-modules $d)" >> build.log
         (cd $DIR/../brn-driver; KERNELPATH=$KERNELBASE$ARCHALIAS/$k/ ARCH=$BUILDALIAS COMPILER_PREFIX=$i-linux-uclibc- TARGETDIR=$BRN_TOOLS_PATH/helper/nodes/lib/modules/$ARCHALIAS/$pure_k_version sh ./brn-driver.sh build-modules $d)
       done
     fi

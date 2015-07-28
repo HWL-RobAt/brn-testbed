@@ -48,6 +48,12 @@ if [ "x$BRN_TOOLS_PATH/helper" = "x" ]; then
 fi
 
 ARCHS="mips mipsel i386"
+if [ "x$USEARCHS" != "x"  ] ; then
+  ARCHS=$USEARCHS
+fi
+
+
+echo "Look for architectures: $ARCHS"
 
 for i in $ARCHS; do
   which $i-linux-uclibc-gcc > /dev/null
@@ -55,13 +61,19 @@ for i in $ARCHS; do
   BUILDALIAS=`cat $FULLNAME | grep -e "^#build $i " | awk '{print $3}'`
 
   if [ $? -eq 0 ]; then
-    echo "Found $i-linux-uclibc-gcc"
+    echo "Found $i-linux-uclibc-gcc ($BUILDALIAS)"
 
-    #todo: USE COPY TO AVOID GIT-COMMITS
-    if [ ! -e click-brn-$ARCHALIAS ]; then
-      git clone $CLICKPATH/.git click-brn-$ARCHALIAS
+    if [ "x$RSYNC" != "x" ]; then
+      #USE COPY TO AVOID GIT-COMMITS
+      echo "Sync sources per rsync..."
+      rsync -a --delete $CLICKPATH  click-brn-$ARCHALIAS
     else
-      ( cd click-brn-$ARCHALIAS; git pull )
+      echo "Sync sources per git..."
+      if [ ! -e click-brn-$ARCHALIAS ]; then
+        git clone $CLICKPATH/.git click-brn-$ARCHALIAS
+      else
+        ( cd click-brn-$ARCHALIAS; git pull )
+      fi
     fi
 
     if [ ! -e click-brn-$ARCHALIAS/Makefile ]; then
