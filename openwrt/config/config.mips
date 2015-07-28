@@ -1,0 +1,2 @@
+KERNEL_CONFIG=mips/kernel.config.20150712
+OPENWRT_CONFIG=mips/openwrt.config.20150712

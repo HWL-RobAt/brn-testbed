@@ -1,0 +1,2 @@
+KERNEL_CONFIG=x86/kernel.config.20150716
+OPENWRT_CONFIG=x86/openwrt.config.20150713

@@ -56,6 +56,8 @@ for i in $ARCHS; do
 
   if [ $? -eq 0 ]; then
     echo "Found $i-linux-uclibc-gcc"
+
+    #todo: USE COPY TO AVOID GIT-COMMITS
     if [ ! -e click-brn-$ARCHALIAS ]; then
       git clone $CLICKPATH/.git click-brn-$ARCHALIAS
     else
