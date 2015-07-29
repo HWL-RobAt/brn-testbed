@@ -19,17 +19,17 @@ case "$SIGN" in
 esac
 
 
-if [ -e $DIR/dl ]; then
+if [ ! -e $DIR/dl ]; then
   mkdir $DIR/dl
 fi
 
 DL_PATH=$DIR/dl
 
-if [ -f build ]; then
+if [ ! -e build ]; then
   mkdir build;
 fi
 
-if [ -f feeds ]; then
+if [ ! -e feeds ]; then
   mkdir feeds;
 fi
 
@@ -49,10 +49,10 @@ done
 FEED_PATHS=`(cd feeds; ls)`
 
 for i in $BUILD_ARCH; do
-  . config/config.$ARCH
+  . config/config.$i
 
-  OPENWRT_PATH=$OPENWRT_VERSION\-$BUILD_ARCH
-  (git clone $OPENWRT_GITURL $OPENWRT_PATH
+  OPENWRT_PATH=$OPENWRT_VERSION\-$i
+  (git clone $OPENWRT_GITURL $OPENWRT_PATH)
   (cd $OPENWRT_PATH; git reset --hard $OPENWRT_REVISION)
 
   (cd $OPENWRT_PATH; ln -s $DL_PATH dl)
@@ -63,9 +63,13 @@ for i in $BUILD_ARCH; do
     echo "src-link $FEEDPATH $DIR/feeds/$f" >> $OPENWRT_PATH/feeds.conf
   done
 
-  (cd $OPENWRT_PATH; ./scripts/feeds update; ./scripts/feeds install -a -d n)
+  (cd $OPENWRT_PATH; ./scripts/feeds update; ./scripts/feeds install -a)
+   #-d n
 
-  cp config/$OPENWRT_CONFIG $OPENWRT_PATH
+  cp config/$OPENWRT_CONFIG $OPENWRT_PATH/
+  cp config/$OPENWRT_CONFIG $OPENWRT_PATH/.config
+
+  (cd $OPENWRT_PATH; yes "" | make oldconfig; make V=99 -j10)
 
 done
 
