@@ -1,2 +1,2 @@
 KERNEL_CONFIG=wndr3700/kernel.config.20150711
-OPENWRT_CONFIG=wndr3700/openwrt.config.20150609
+OPENWRT_CONFIG=wndr3700/openwrt.config.20150730

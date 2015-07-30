@@ -25,10 +25,6 @@ fi
 
 DL_PATH=$DIR/dl
 
-if [ ! -e build ]; then
-  mkdir build;
-fi
-
 if [ ! -e feeds ]; then
   mkdir feeds;
 fi
@@ -69,7 +65,17 @@ for i in $BUILD_ARCH; do
   cp config/$OPENWRT_CONFIG $OPENWRT_PATH/
   cp config/$OPENWRT_CONFIG $OPENWRT_PATH/.config
 
-  (cd $OPENWRT_PATH; yes "" | make oldconfig; make V=99 -j10)
+  (cd $OPENWRT_PATH; yes "" | make oldconfig; make V=99 -j10) | tee $OPENWRT_PATH/openwrt_build.log
+
+  echo "export OPENWRT_PATH=$OPENWRT_PATH" > $OPENWRT_PATH/toolchain.bashrc
+
+  TOOLCHAIN_DIR=`(cd $OPENWRT_PATH; for i in staging_dir/tool*; do if [ -e $i/bin/ ]; then echo $i; break; fi; done)`
+
+  echo "export TOOLCHAIN_DIR=\$OPENWRT_PATH/$TOOLCHAIN_DIR" >> $OPENWRT_PATH/toolchain.bashrc
+  echo "export STAGING_DIR=\$OPENWRT_PATH/staging_dir/" >> $OPENWRT_PATH/toolchain.bashrc
+
+  echo "export PATH=\$PATH:\$TOOLCHAIN_DIR/bin/" >> $OPENWRT_PATH/toolchain.bashrc
+  echo "export PATH=\$PATH:\$STAGING_DIR/host/bin" >> $OPENWRT_PATH/toolchain.bashrc
 
 done
 

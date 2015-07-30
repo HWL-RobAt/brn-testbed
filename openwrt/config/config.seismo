@@ -1,2 +1,2 @@
 KERNEL_CONFIG=
-OPENWRT_CONFIG=seismo/openwrt.config.20150724
+OPENWRT_CONFIG=seismo/openwrt.config.20150730
