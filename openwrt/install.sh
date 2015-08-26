@@ -42,9 +42,9 @@ if [ "x$CONFIG" != "x" ]; then
 fi
 
 
-#for i in $EXTRA_FEEDS; do
-#  (cd feeds; git clone $i)
-#done
+for i in $EXTRA_FEEDS; do
+  (cd feeds; git clone $i)
+done
 
 FEED_PATHS=`(cd feeds; ls)`
 
@@ -53,7 +53,7 @@ for i in $BUILD_ARCH; do
 
   OPENWRT_PATH=$OPENWRT_VERSION\-$i
 
-if [ "x$DIR" = "y" ]; then
+#if [ "x$DIR" = "y" ]; then
   (git clone $OPENWRT_GITURL $OPENWRT_PATH)
   (cd $OPENWRT_PATH; git reset --hard $OPENWRT_REVISION)
 
@@ -83,7 +83,7 @@ if [ "x$DIR" = "y" ]; then
   echo "export PATH=\$PATH:\$TOOLCHAIN_DIR/bin/" >> $OPENWRT_PATH/toolchain.bashrc
   echo "export PATH=\$PATH:\$STAGING_DIR/host/bin" >> $OPENWRT_PATH/toolchain.bashrc
 
-fi
+#fi
 
   if [ "x$KERNEL_CONFIG" != "x" ]; then
 
@@ -92,6 +92,12 @@ fi
     LINUX_DIR=`cd $OPENWRT_PATH/$BUILD_DIR/$LINUXTOOL_DIR; ls -d linux-3*`
 
     cp -r $OPENWRT_PATH/$BUILD_DIR/$LINUXTOOL_DIR/$LINUX_DIR kernel/$LINUX_DIR\-$i
+    cp config/$KERNEL_CONFIG kernel/$LINUX_DIR\-$i/
+    cp config/$KERNEL_CONFIG kernel/$LINUX_DIR\-$i/.config
+
+    cp tools/*.sh kernel/$LINUX_DIR\-$i/
+
+    
 
   fi
 
