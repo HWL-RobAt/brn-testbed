@@ -1,0 +1,5 @@
+MODE=ahdemo
+CHANNEL=11
+POWER=15
+SSID="brn_ahdemo"
+BSSID="01:02:03:04:05:06"

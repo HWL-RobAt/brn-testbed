@@ -1,0 +1,2 @@
+#ATH_PCI="autocreate=none outdoor=1 xchanmode=1 countrycode=395 hal_tpc=1"
+ATH_PCI="autocreate=none hal_tpc=1"

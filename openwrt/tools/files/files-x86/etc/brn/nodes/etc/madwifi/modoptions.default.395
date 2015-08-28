@@ -1,0 +1,5 @@
+ATH_PCI="intmit=0 countrycode=395"
+#ATH_PCI="autocreate=none"
+#ATH_PCI="autocreate=none outdoor=1 xchanmode=1 countrycode=276"
+#ATH_PCI="autocreate=none outdoor=1 countrycode=395 tpc=1"
+#ATH_PCI="autocreate=none outdoor=1 xchanmode=1 hal_tpc=1"

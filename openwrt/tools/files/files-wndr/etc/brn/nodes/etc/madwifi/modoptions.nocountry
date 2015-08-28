@@ -1,0 +1,3 @@
+ATH_PCI="intmit=0"
+#ATH_PCI="autocreate=none outdoor=1 xchanmode=1 hal_tpc=1"
+

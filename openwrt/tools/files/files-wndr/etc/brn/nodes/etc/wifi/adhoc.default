@@ -1,0 +1,5 @@
+MODE=adhoc
+CHANNEL=1
+POWER=16
+WIFITYPE=0
+SSID="brn_adhoc"

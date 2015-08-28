@@ -10,3 +10,4 @@ EXTRA_FEEDS="git@gitsar:seismo-openwrt-feed git@gitsar:hwl-packages"
 DEFAULT_OPENWRT_CONFIG=openwrt_current.config
 DEFAULT_KERNEL_CONFIG=kernel_current.config
 
+TESTBED_NETWORK=192.168.3.0/24

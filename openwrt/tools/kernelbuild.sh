@@ -18,13 +18,16 @@ case "$SIGN" in
         ;;
 esac
 
+if [ "x$CPUS" = "x" ]; then
+    CPUS=60
+fi
 
 export ICP_ENV_DIR=$PWD/crypto/ocf/ep80579
 
 case "$BUILD_ARCH" in
     "mips")
 #mips
-make \
+make -j $CPUS \
 CC=mipsel-openwrt-linux-gcc \
 LD=mipsel-openwrt-linux-ld \
 AR=mipsel-openwrt-linux-ar \
@@ -34,7 +37,7 @@ ARCH=mips BOARD=brcm47xx $*
     ;;
     "wndr3700")
 #wndr
-make \
+make -j $CPUS \
 CC=mips-openwrt-linux-gcc \
 LD=mips-openwrt-linux-ld \
 AR=mips-openwrt-linux-ar \
@@ -44,7 +47,7 @@ ARCH=mips BOARD=ath79 $*
     ;;
     "x86")
 #x86
-make \
+make -j $CPUS \
 CC=i486-openwrt-linux-gcc \
 LD=i486-openwrt-linux-ld \
 AR=i486-openwrt-linux-ar \

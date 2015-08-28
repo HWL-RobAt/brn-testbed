@@ -1,0 +1,10 @@
+# /etc/default/tftpd-hpa
+
+TFTP_USERNAME="tftp"
+TFTP_DIRECTORY="/srv/boot"
+TFTP_ADDRESS="0.0.0.0:69"
+TFTP_OPTIONS="-v -v -v -v -v -v -p -m /srv/boot/map -s "
+
+#TFTP_DIRECTORY="/var/lib/tftpboot"
+#TFTP_OPTIONS="-s /srv/boot -v -v -v -v -v -v -p -m /srv/boot/map"
+#TFTP_OPTIONS="--secure"

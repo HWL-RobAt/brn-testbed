@@ -1,0 +1,4 @@
+#ATH_PCI="autocreate=none outdoor=1 xchanmode=1 countrycode=840"
+#ATH_PCI="autocreate=none outdoor=1 xchanmode=1"
+ATH_PCI="autocreate=none"
+

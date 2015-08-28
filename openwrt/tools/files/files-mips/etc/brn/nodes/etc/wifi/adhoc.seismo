@@ -1,0 +1,7 @@
+MODE=adhoc
+CHANNEL=13
+POWER=16
+WIFITYPE=0
+SSID="SeismoOLSR"
+WEPKEY="s:olsrchan1"
+

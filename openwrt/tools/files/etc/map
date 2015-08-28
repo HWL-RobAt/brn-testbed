@@ -1,0 +1,13 @@
+# Action        Match				Replace
+# Actions:
+# e - exit
+# r - replace
+# re - replace and exit (last replace rule)
+# after change do: rcxinetd restart
+
+#
+r		vmlinux				vmlinux-\i
+
+re		vmlinux-192.168.*		vmlinux-mips
+
+re		vmlinuz-192.168.*               vmlinuz-x86
