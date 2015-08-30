@@ -1,8 +1,0 @@
-config dropbear
-	option PasswordAuth 'on'
-	option RootPasswordAuth 'on'
-	option Port         '22'
-#	option BannerFile   '/etc/banner'
-	option rsakeyfile   '/etc/dropbear/dropbear_rsa_host_key'
-	option dsskeyfile   '/etc/dropbear/dropbear_dss_host_key'
-	
