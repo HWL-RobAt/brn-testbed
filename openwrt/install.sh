@@ -160,6 +160,9 @@ fi
         cp kernel/$LINUX_DIR\-$i/vmlinux-wndr3700v2.uImage  $DIR/testbed-server/srv/boot/vmlinuz-$i
     fi
 
+    KERNELVERSION=`(cd $DIR/testbed-server/srv/nfsroot-$i/lib/modules/; ls)`
+    (cd $DIR/testbed-server/srv/nfsroot-$i/lib/modules/$KERNELVERSION; ls -1 | grep -v kernel | xargs rm -rf; find . -name "*.ko" -print0 | xargs -0 cp --target=$DIR/testbed-server/srv/nfsroot-$i/lib/modules/$KERNELVERSION; rm -rf kernel)
+
   fi
 
 done
