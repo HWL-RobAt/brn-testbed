@@ -11,4 +11,4 @@
 
 # ---------------------------  Testbed  -----------------------------
 /srv/boot 192.168.0.0/24(ro,async,insecure,no_root_squash,no_subtree_check,anonuid=1000,anongid=100)
-/srv/openwrtroot-mips 192.168.0.0/24(ro,async,insecure,no_root_squash,no_subtree_check,anonuid=1000,anongid=100)
+/srv/nfsroot-mips 192.168.0.0/24(ro,async,insecure,no_root_squash,no_subtree_check,anonuid=1000,anongid=100)
