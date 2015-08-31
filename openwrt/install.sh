@@ -100,7 +100,18 @@ fi
   . $OPENWRT_PATH/toolchain.bashrc
 
   if [ ! -e $DIR/testbed-server/srv/nfsroot-$i ]; then
+      #copy openwrt files (rootfs)
       (cd $OPENWRT_ROOTFS_DIR; cp -r root-* $DIR/testbed-server/srv/nfsroot-$i)
+
+
+      if [ -e $DIR/tools/nfsroot-files/$i/ ]; then
+          #copy common files
+          (cd $DIR/tools/nfsroot-files/common/; cp -r * $DIR/testbed-server/srv/nfsroot-$i)
+
+          #copy arch files
+          (cd $DIR/tools/nfsroot-files/$i/; cp -r * $DIR/testbed-server/srv/nfsroot-$i)
+      fi
+
   fi
 
   if [ "x$KERNEL_CONFIG" != "x" ]; then
@@ -149,10 +160,15 @@ fi
         cp kernel/$LINUX_DIR\-$i/vmlinux-wndr3700v2.uImage  $DIR/testbed-server/srv/boot/vmlinuz-$i
     fi
 
-    ( cd $DIR/testbed-server/srv/boot/; chmod 644 * )
+    KERNELVERSION=`(cd $DIR/testbed-server/srv/nfsroot-$i/lib/modules/; ls)`
+    (cd $DIR/testbed-server/srv/nfsroot-$i/lib/modules/$KERNELVERSION; ls -1 | grep -v kernel | xargs rm -rf; find . -name "*.ko" -print0 | xargs -0 cp --target=$DIR/testbed-server/srv/nfsroot-$i/lib/modules/$KERNELVERSION; rm -rf kernel)
 
   fi
 
 done
+
+#copy and setup server files
+( cd $DIR/testbed-server/srv/boot/; chmod 644 * )
+( cd tools/server-files/; cp -r * $DIR/testbed-server/)
 
 
