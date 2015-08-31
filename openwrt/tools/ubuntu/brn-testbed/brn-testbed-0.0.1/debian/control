@@ -1,0 +1,13 @@
+Source: brn-testbed
+Section: doc
+Priority: extra
+Maintainer: Robert Sombrutzki <sombrurx@informatik.hu-berlin.de>
+Build-Depends: debhelper (>= 5)
+
+Package: brn-testbed
+Architecture: all
+Depends:
+Conflicts:
+Replaces:
+Provides: brn-testbed
+Description: docs and examle configuration for brn-testbed server

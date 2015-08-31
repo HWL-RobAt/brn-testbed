@@ -1,0 +1,10 @@
+host node1 {
+  hardware ethernet 00:01:02:03:04:05;
+  fixed-address 192.168.0.2;
+  option host-name "node1";
+  server-name "192.168.0.1";
+  next-server 192.168.0.1;
+  option root-path "/var/srv/arch";
+}
+
+

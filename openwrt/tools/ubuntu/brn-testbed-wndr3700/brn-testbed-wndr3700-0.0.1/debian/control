@@ -1,0 +1,13 @@
+Source: brn-testbed-wndr3700
+Section: doc
+Priority: extra
+Maintainer: Robert Sombrutzki <sombrurx@informatik.hu-berlin.de>
+Build-Depends: debhelper (>= 5)
+
+Package: brn-testbed-wndr3700
+Architecture: all
+Depends: brn-testbed
+Conflicts:
+Replaces:
+Provides: brn-testbed-wndr3700
+Description: nfsroot for wndr3700 (brn-testbed server)
