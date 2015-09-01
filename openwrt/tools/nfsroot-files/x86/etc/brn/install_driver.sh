@@ -9,8 +9,8 @@ sysctl -w kernel.hostname=$NAME
 #  exit
 #fi
 
-MODULSDIR=/lib/modules/KERNELVERSION/madwifi ./nodes/lib/wifidriver/madwifi.sh uninstall
-MODULSDIR=/lib/modules/KERNELVERSION/madwifi ./nodes/lib/wifidriver/madwifi.sh install
+MODULSDIR=/lib/modules/KERNELVERSION/net ./nodes/lib/wifidriver/madwifi.sh uninstall
+MODULSDIR=/lib/modules/KERNELVERSION/net ./nodes/lib/wifidriver/madwifi.sh install
 
 DEVICE=ath0 ./nodes/lib/wificonfig/madwifi.sh delete
 CONFIG=monitor DEVICE=ath0 ./nodes/lib/wificonfig/madwifi.sh create
