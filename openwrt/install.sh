@@ -58,7 +58,7 @@ FEED_PATHS=`(cd feeds; ls)`
 for i in $BUILD_ARCH; do
   . config/config.$i
 
-  OPENWRT_PATH=$OPENWRT_VERSION\-$i
+  export OPENWRT_PATH=$DIR/$OPENWRT_VERSION\-$i
 
   if [ ! -e $OPENWRT_PATH/openwrt_build.log ]; then
 
@@ -87,7 +87,7 @@ for i in $BUILD_ARCH; do
   # TOOLCHAIN BASHRC
   #
 
-  echo "export OPENWRT_PATH=$DIR/$OPENWRT_PATH" > $OPENWRT_PATH/toolchain.bashrc
+  echo "export OPENWRT_PATH=$OPENWRT_PATH" > $OPENWRT_PATH/toolchain.bashrc
 
   TOOLCHAIN_DIR=`(cd $OPENWRT_PATH; for i in staging_dir/tool*; do if [ -e $i/bin/ ]; then echo $i; break; fi; done)`
 
@@ -105,9 +105,6 @@ for i in $BUILD_ARCH; do
   OPENWRT_ARCH=`(cd $OPENWRT_PATH/bin; ls)`
   echo "export OPENWRT_ARCH=$OPENWRT_ARCH" >> $OPENWRT_PATH/toolchain.bashrc
 
-  . $OPENWRT_PATH/toolchain.bashrc
-
-
   #
   # KERNEL (NFSROOT)
   #
@@ -115,7 +112,7 @@ for i in $BUILD_ARCH; do
   if [ "x$KERNEL_CONFIG" != "x" ]; then
     if [ ! -e $DIR/testbed-server/srv/nfsroot-$i ]; then
       #copy openwrt files (rootfs)
-      (cd $OPENWRT_ROOTFS_DIR; cp -ar root-* $DIR/testbed-server/srv/nfsroot-$i)
+      (cd $OPENWRT_PATH/$OPENWRT_ROOTFS_DIR; cp -ar root-* $DIR/testbed-server/srv/nfsroot-$i)
 
 
       if [ -e $DIR/tools/nfsroot-files/$i/ ]; then
@@ -190,7 +187,7 @@ for i in $BUILD_ARCH; do
       (cd $DIR/testbed-server/srv/nfsroot-$i/etc; cp opkg.conf opkg.conf.bak; echo "arch all 100" >> opkg.conf; echo "arch $OPENWRT_ARCH 300 " >> opkg.conf)
 
       for p in `(cd $OPENWRT_PATH/bin/$OPENWRT_ARCH/packages/hwlpackages; ls -1 | grep "ipk")`; do
-        (cd $OPENWRT_PATH/bin/$OPENWRT_ARCH/packages/hwlpackages; opkg --nodeps -o $DIR/testbed-server/srv/nfsroot-$i/ -f $DIR/testbed-server/srv/nfsroot-$i/etc/opkg.conf install $p)
+        (cd $OPENWRT_PATH/bin/$OPENWRT_ARCH/packages/hwlpackages; . $OPENWRT_PATH/toolchain.bashrc; opkg --nodeps -o $DIR/testbed-server/srv/nfsroot-$i/ -f $DIR/testbed-server/srv/nfsroot-$i/etc/opkg.conf install $p)
       done
 
       (cd $DIR/testbed-server/srv/nfsroot-$i/etc; rm opkg.conf; mv opkg.conf.bak opkg.conf)
@@ -202,3 +199,5 @@ done
 #copy and setup server files
 ( cd $DIR/testbed-server/srv/boot/; chmod 644 * )
 ( cd tools/server-files/; cp -r * $DIR/testbed-server/)
+
+unset OPENWRT_PATH
