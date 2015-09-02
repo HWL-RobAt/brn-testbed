@@ -133,15 +133,16 @@ for i in $BUILD_ARCH; do
     if [ ! -e kernel/$LINUX_DIR\-$i ]; then
         cp -ar $OPENWRT_PATH/$BUILD_DIR/$LINUXTOOL_DIR/$LINUX_DIR kernel/$LINUX_DIR\-$i
     fi
-    cp -a config/$KERNEL_CONFIG kernel/$LINUX_DIR\-$i/
-    cp -a config/$KERNEL_CONFIG kernel/$LINUX_DIR\-$i/.config
 
     cp -a tools/*.sh kernel/$LINUX_DIR\-$i/
 
     if [ "x$i" = "xx86" ]; then
         if [ ! -e kernel/$LINUX_DIR\-$i/.brn-kernel_build ]; then
-          ( cd kernel/$LINUX_DIR\-$i/; . $OPENWRT_PATH/toolchain.bashrc; BUILD_ARCH=$i CPUS=1 sh ./kernelbuild.sh clean )
-          ( cd kernel/$LINUX_DIR\-$i/; . $OPENWRT_PATH/toolchain.bashrc; BUILD_ARCH=$i CPUS=60 sh ./kernelbuild.sh bzImage modules)
+          ( cd kernel/$LINUX_DIR\-$i/; . $OPENWRT_PATH/toolchain.bashrc; BUILD_ARCH=$i CPUS=1 sh ./kernelbuild.sh distclean clean )
+          cp -a config/$KERNEL_CONFIG kernel/$LINUX_DIR\-$i/
+          cp -a config/$KERNEL_CONFIG kernel/$LINUX_DIR\-$i/.config
+
+          ( cd kernel/$LINUX_DIR\-$i/; . $OPENWRT_PATH/toolchain.bashrc; BUILD_ARCH=$i CPUS=30 sh ./kernelbuild.sh bzImage modules)
           touch kernel/$LINUX_DIR\-$i/.brn-kernel_build
         fi
 
@@ -153,8 +154,11 @@ for i in $BUILD_ARCH; do
     fi
     if [ "x$i" = "xmips" ]; then
         if [ ! -e kernel/$LINUX_DIR\-$i/.brn-kernel_build ]; then
-          ( cd kernel/$LINUX_DIR\-$i/; . $OPENWRT_PATH/toolchain.bashrc; BUILD_ARCH=$i CPUS=1 sh ./kernelbuild.sh clean )
-          ( cd kernel/$LINUX_DIR\-$i/; . $OPENWRT_PATH/toolchain.bashrc; BUILD_ARCH=$i CPUS=60 sh ./kernelbuild.sh vmlinux modules)
+          ( cd kernel/$LINUX_DIR\-$i/; . $OPENWRT_PATH/toolchain.bashrc; BUILD_ARCH=$i CPUS=1 sh ./kernelbuild.sh distclean clean )
+          cp -a config/$KERNEL_CONFIG kernel/$LINUX_DIR\-$i/
+          cp -a config/$KERNEL_CONFIG kernel/$LINUX_DIR\-$i/.config
+
+          ( cd kernel/$LINUX_DIR\-$i/; . $OPENWRT_PATH/toolchain.bashrc; BUILD_ARCH=$i CPUS=30 sh ./kernelbuild.sh vmlinux modules)
           touch kernel/$LINUX_DIR\-$i/.brn-kernel_build
         fi
 
@@ -166,8 +170,11 @@ for i in $BUILD_ARCH; do
     fi
     if [ "x$i" = "xwndr3700" ]; then
         if [ ! -e kernel/$LINUX_DIR\-$i/.brn-kernel_build ]; then
-          ( cd kernel/$LINUX_DIR\-$i/; . $OPENWRT_PATH/toolchain.bashrc; BUILD_ARCH=$i CPUS=1 sh ./kernelbuild.sh clean )
-          ( cd kernel/$LINUX_DIR\-$i/; . $OPENWRT_PATH/toolchain.bashrc; BUILD_ARCH=$i CPUS=60 sh ./kernelbuild.sh vmlinux modules; sh build-tftp.sh)
+          ( cd kernel/$LINUX_DIR\-$i/; . $OPENWRT_PATH/toolchain.bashrc; BUILD_ARCH=$i CPUS=1 sh ./kernelbuild.sh distclean clean )
+          cp -a config/$KERNEL_CONFIG kernel/$LINUX_DIR\-$i/
+          cp -a config/$KERNEL_CONFIG kernel/$LINUX_DIR\-$i/.config
+
+          ( cd kernel/$LINUX_DIR\-$i/; . $OPENWRT_PATH/toolchain.bashrc; BUILD_ARCH=$i CPUS=30 sh ./kernelbuild.sh vmlinux modules; sh build-tftp.sh)
           touch kernel/$LINUX_DIR\-$i/.brn-kernel_build
         fi
 

@@ -18,13 +18,12 @@ case "$SIGN" in
         ;;
 esac
 
-CPUS=60
-
-export ICP_ENV_DIR=$PWD/crypto/ocf/ep80579
+CPUS=30
 
 case "$BUILD_ARCH" in
     "mips")
 #mips
+export ICP_ENV_DIR=$PWD/crypto/ocf/ep80579
 make -j $CPUS \
 CC=mipsel-openwrt-linux-gcc \
 LD=mipsel-openwrt-linux-ld \
@@ -47,6 +46,7 @@ ARCH=mips BOARD=ath79 $*
     ;;
     "x86")
 #x86
+export ICP_ENV_DIR=$PWD/crypto/ocf/ep80579
 make -j $CPUS \
 CC=i486-openwrt-linux-gcc \
 LD=i486-openwrt-linux-ld \
