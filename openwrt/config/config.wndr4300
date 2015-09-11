@@ -1,0 +1,2 @@
+KERNEL_CONFIG=wndr4300/kernel.config.20150711
+OPENWRT_CONFIG=wndr4300/openwrt.config.20150911

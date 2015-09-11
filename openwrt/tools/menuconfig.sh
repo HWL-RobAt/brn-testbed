@@ -23,7 +23,7 @@ case "$BUILD_ARCH" in
 #mips
 make ARCH=mips BOARD=brcm47xx menuconfig#mips
     ;;
-    "wndr3700")
+    "wndr3700"|"wndr4300")
 #wndr
 make ARCH=mips BOARD=ath79 menuconfig
     ;;

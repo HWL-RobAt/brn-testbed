@@ -174,7 +174,7 @@ for i in $BUILD_ARCH; do
           cp -a config/$KERNEL_CONFIG kernel/$LINUX_DIR\-$i/
           cp -a config/$KERNEL_CONFIG kernel/$LINUX_DIR\-$i/.config
 
-          ( cd kernel/$LINUX_DIR\-$i/; . $OPENWRT_PATH/toolchain.bashrc; BUILD_ARCH=$i CPUS=30 sh ./kernelbuild.sh vmlinux modules; sh build-tftp.sh)
+          ( cd kernel/$LINUX_DIR\-$i/; . $OPENWRT_PATH/toolchain.bashrc; BUILD_ARCH=$i CPUS=30 sh ./kernelbuild.sh vmlinux modules; BUILD_ARCH=$i sh build-tftp.sh)
           touch kernel/$LINUX_DIR\-$i/.brn-kernel_build
         fi
 
@@ -184,6 +184,23 @@ for i in $BUILD_ARCH; do
 
         cp -a kernel/$LINUX_DIR\-$i/vmlinux-wndr3700v1.uImage  $DIR/testbed-server/srv/boot/vmlinuz-$i-v210
         cp -a kernel/$LINUX_DIR\-$i/vmlinux-wndr3700v2.uImage  $DIR/testbed-server/srv/boot/vmlinuz-$i
+    fi
+
+    if [ "x$i" = "xwndr4300" ]; then
+        if [ ! -e kernel/$LINUX_DIR\-$i/.brn-kernel_build ]; then
+          ( cd kernel/$LINUX_DIR\-$i/; . $OPENWRT_PATH/toolchain.bashrc; BUILD_ARCH=$i CPUS=1 sh ./kernelbuild.sh distclean clean )
+          cp -a config/$KERNEL_CONFIG kernel/$LINUX_DIR\-$i/
+          cp -a config/$KERNEL_CONFIG kernel/$LINUX_DIR\-$i/.config
+
+          ( cd kernel/$LINUX_DIR\-$i/; . $OPENWRT_PATH/toolchain.bashrc; BUILD_ARCH=$i CPUS=30 sh ./kernelbuild.sh vmlinux modules; BUILD_ARCH=$i sh build-tftp.sh)
+          touch kernel/$LINUX_DIR\-$i/.brn-kernel_build
+        fi
+
+        rm -rf $DIR/testbed-server/srv/nfsroot-$i/lib/modules
+        mkdir --mode=755 $DIR/testbed-server/srv/nfsroot-$i/lib/modules
+        ( cd kernel/$LINUX_DIR\-$i/; . $OPENWRT_PATH/toolchain.bashrc; BUILD_ARCH=$i INSTALL_MOD_PATH=$DIR/testbed-server/srv/nfsroot-$i/ sh ./kernelbuild.sh modules_install)
+
+        cp -a kernel/$LINUX_DIR\-$i/vmlinux-wndr4300.uImage  $DIR/testbed-server/srv/boot/vmlinuz-$i
     fi
 
     KERNELVERSION=`(cd $DIR/testbed-server/srv/nfsroot-$i/lib/modules/; ls)`

@@ -33,7 +33,7 @@ STRIP=mipsel-openwrt-linux-strip \
 INSTALL_MOD_PATH=$INSTALL_MOD_PATH \
 ARCH=mips BOARD=brcm47xx $*
     ;;
-    "wndr3700")
+    "wndr3700"|"wndr4300")
 #wndr
 make -j $CPUS \
 CC=mips-openwrt-linux-gcc \

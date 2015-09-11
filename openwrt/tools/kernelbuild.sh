@@ -34,7 +34,7 @@ NM=mipsel-openwrt-linux-nm \
 STRIP=mipsel-openwrt-linux-strip \
 ARCH=mips BOARD=brcm47xx $*
     ;;
-    "wndr3700")
+    "wndr3700"|"wndr4300")
 #wndr
 make -j $CPUS \
 CC=mips-openwrt-linux-gcc \

@@ -3,6 +3,7 @@ OPENWRT_GITURL="git://git.openwrt.org/14.07/openwrt.git"
 OPENWRT_REVISION="d70e69464ec00006b26ac684e808a6118dd4177a"
 
 BUILD_ARCH="mips wndr3700 x86 seismo"
+#BUILD_ARCH="mips wndr3700 x86 seismo wndr4300"
 
 EXTRA_FEEDS="git@gitsar:seismo-openwrt-feed git@gitsar:hwl-packages"
 #http://samtrac.informatik.hu-berlin.de/seismo-openwrt-feed.git
