@@ -18,12 +18,12 @@ case "$SIGN" in
         ;;
 esac
 
-
-if [ ! -e $DIR/dl ]; then
-  mkdir --mode=755 $DIR/dl
-fi
-
 DL_PATH=$DIR/dl
+
+if [ ! -e $DL_PATH ]; then
+  mkdir --mode=755 $DL_PATH
+  (cd $DL_PATH; wget ftp://ftp.openssl.org/source/openssl-1.0.2c.tar.gz)
+fi
 
 if [ ! -e feeds ]; then
   mkdir --mode=755 feeds;
