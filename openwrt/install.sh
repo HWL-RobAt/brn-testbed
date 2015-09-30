@@ -79,7 +79,7 @@ for i in $BUILD_ARCH; do
     cp -a config/$OPENWRT_CONFIG $OPENWRT_PATH/
     cp -a config/$OPENWRT_CONFIG $OPENWRT_PATH/.config
 
-    (cd $OPENWRT_PATH; yes "" | make oldconfig; make V=99 -j10) | tee $OPENWRT_PATH/openwrt_build.log
+    (cd $OPENWRT_PATH; yes "" | make oldconfig; make V=99 -j10; echo "Build finished with $?") 2>&1 | tee $OPENWRT_PATH/openwrt_build.log
 
   fi
 

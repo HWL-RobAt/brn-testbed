@@ -5,7 +5,7 @@ OPENWRT_REVISION="d70e69464ec00006b26ac684e808a6118dd4177a"
 BUILD_ARCH="mips wndr3700 x86 seismo"
 #BUILD_ARCH="mips wndr3700 x86 seismo wndr4300"
 
-EXTRA_FEEDS="git@gitsar:seismo-openwrt-feed git@gitsar:hwl-packages"
+EXTRA_FEEDS="git@github.com:HumboldtWirelessLab/seismo-openwrt-feed.git git@github.com:HumboldtWirelessLab/hwl-packages.git"
 #http://samtrac.informatik.hu-berlin.de/seismo-openwrt-feed.git
 
 DEFAULT_OPENWRT_CONFIG=openwrt_current.config
