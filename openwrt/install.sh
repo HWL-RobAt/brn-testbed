@@ -22,7 +22,7 @@ DL_PATH=$DIR/dl
 
 if [ ! -e $DL_PATH ]; then
   mkdir --mode=755 $DL_PATH
-  (cd $DL_PATH; wget ftp://ftp.openssl.org/source/openssl-1.0.2c.tar.gz)
+  (cd $DL_PATH; wget http://ftp.vim.org/security/openssl/openssl-1.0.2c.tar.gz)
 fi
 
 if [ ! -e feeds ]; then
